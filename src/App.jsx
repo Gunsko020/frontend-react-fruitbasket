@@ -12,13 +12,11 @@ function App() {
     const [apple,setApple] = React.useState(0)
     const [kiwi,setKiwi] = React.useState(0)
 
-    const decreaseCount = () => {
-        setStrawberry(strawberry - 1)
-        setBanana(banana - 1)
-    }
-
-    const increaseCount = () => {
-        setStrawberry(strawberry +1)
+   function resetFruits(){
+        setStrawberry(0)
+        setApple(0)
+        setKiwi(0)
+        setBanana(0)
     }
 
   return (
@@ -34,13 +32,14 @@ function App() {
                             </h2>
                             <button
                             type="button"
-                            onClick={decreaseCount}>
+                            disabled={(strawberry===0)}
+                            onClick={()=>setStrawberry(strawberry-1)}>
                                 -
                             </button>
                             <p>{strawberry}</p>
                             <button
                             type="button"
-                            onClick={increaseCount}>
+                            onClick={()=>setStrawberry(strawberry+1)}>
                                 +
                             </button>
                         </p>
@@ -52,11 +51,16 @@ function App() {
                             </h2>
                             <button
                                 type="button"
-                                onClick={decreaseCount}>
+                                disabled={(banana===0)}
+                                onClick={()=>setBanana(banana-1)}>
                                 -
                             </button>
                             <p>{banana}</p>
-                            <button> + </button>
+                            <button
+                                type="button"
+                                onClick={()=>setBanana(banana+1)}>
+                                +
+                            </button>
                         </p>
                     </article>
                     <article className="inner-container">
@@ -66,11 +70,16 @@ function App() {
                             </h2>
                             <button
                                 type="button"
-                                onClick={decreaseCount}>
+                                disabled={(apple===0)}
+                                onClick={()=>setApple(apple-1)}>
                                 -
                             </button>
                             <p>{apple}</p>
-                            <button> + </button>
+                            <button
+                                type="button"
+                                onClick={()=>setApple(apple+1)}>
+                                +
+                            </button>
                         </p>
                     </article>
                     <article className="inner-container">
@@ -80,15 +89,24 @@ function App() {
                             </h2>
                             <button
                                 type="button"
-                                onClick={decreaseCount}>
+                                disabled={(kiwi===0)}
+                                onClick={()=>setKiwi(kiwi-1)}>
                                 -
                             </button>
                             <p>{kiwi}</p>
-                            <button> + </button>
+                            <button
+                                type="button"
+                                onClick={()=>setKiwi(kiwi+1)}>
+                                +
+                            </button>
                         </p>
                     </article>
                 <article>
-                    <button className="reset-button">
+                    <button
+                        type="submit"
+                        className="reset-button"
+                        onClick={resetFruits}
+                    >
                         Reset
                     </button>
                 </article>

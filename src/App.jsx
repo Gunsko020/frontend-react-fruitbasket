@@ -1,25 +1,27 @@
 
 import './App.css'
-import React from "react";
-
+import {useState}  from "react";
+import Fruitbox from "./components/Fruitbox/Fruitbox.jsx";
+import Button from "./components/Button/Button.jsx";
+import Input from "./components/InputDirectory/Input.jsx";
 
 
 
 function App() {
 
-    const [strawberry, setStrawberry] = React.useState(0)
-    const [banana,setBanana] = React.useState(0)
-    const [apple,setApple] = React.useState(0)
-    const [kiwi,setKiwi] = React.useState(0)
+    const [strawberry, setStrawberry] = useState(0)
+    const [banana,setBanana] = useState(0)
+    const [apple,setApple] = useState(0)
+    const [kiwi,setKiwi] = useState(0)
 
-    const [name,setName] = React.useState("")
-    const [lastname,setLastName] = React.useState("")
-    const [age,setAge] = React.useState(0)
-    const [zipcode,setZipcode] = React.useState("")
-    const [deliveryFrequency,toggleDeliveryFrequency] = React.useState("Every-week")
-    const [deliveryTime,toggleDeliveryTime] = React.useState("EarlyTime")
-    const [comment,setComment] = React.useState("")
-    const [condition,toggleCondition] = React.useState(false)
+    const [name,setName] = useState("")
+    const [lastname,setLastName] = useState("")
+    const [age,setAge] = useState(0)
+    const [zipcode,setZipcode] = useState("")
+    const [deliveryFrequency,toggleDeliveryFrequency] = useState("Every-week")
+    const [deliveryTime,toggleDeliveryTime] = useState("EarlyTime")
+    const [comment,setComment] = useState("")
+    const [condition,toggleCondition] = useState(false)
 
    function resetFruits(){
         setStrawberry(0)
@@ -44,18 +46,10 @@ function App() {
                             <h2>
                                 🍓Aardbeien
                             </h2>
-                            <button
-                            type="button"
-                            disabled={(strawberry===0)}
-                            onClick={()=>setStrawberry(strawberry-1)}>
-                                -
-                            </button>
-                            <p>{strawberry}</p>
-                            <button
-                            type="button"
-                            onClick={()=>setStrawberry(strawberry+1)}>
-                                +
-                            </button>
+                            <Fruitbox
+                            fruitCount={strawberry}
+                            setFruitCount={setStrawberry}/>
+
                         </p>
                     </article>
                     <article className="inner-container">
@@ -63,18 +57,9 @@ function App() {
                             <h2>
                             🍌Bananen
                             </h2>
-                            <button
-                                type="button"
-                                disabled={(banana===0)}
-                                onClick={()=>setBanana(banana-1)}>
-                                -
-                            </button>
-                            <p>{banana}</p>
-                            <button
-                                type="button"
-                                onClick={()=>setBanana(banana+1)}>
-                                +
-                            </button>
+                            <Fruitbox
+                                fruitCount={banana}
+                                setFruitCount={setBanana}/>
                         </p>
                     </article>
                     <article className="inner-container">
@@ -82,18 +67,9 @@ function App() {
                             <h2>
                             🍏Appels
                             </h2>
-                            <button
-                                type="button"
-                                disabled={(apple===0)}
-                                onClick={()=>setApple(apple-1)}>
-                                -
-                            </button>
-                            <p>{apple}</p>
-                            <button
-                                type="button"
-                                onClick={()=>setApple(apple+1)}>
-                                +
-                            </button>
+                            <Fruitbox
+                                fruitCount={apple}
+                                setFruitCount={setApple}/>
                         </p>
                     </article>
                     <article className="inner-container">
@@ -101,74 +77,52 @@ function App() {
                             <h2>
                             🥝Kiwi's
                             </h2>
-                            <button
-                                type="button"
-                                disabled={(kiwi===0)}
-                                onClick={()=>setKiwi(kiwi-1)}>
-                                -
-                            </button>
-                            <p>{kiwi}</p>
-                            <button
-                                type="button"
-                                onClick={()=>setKiwi(kiwi+1)}>
-                                +
-                            </button>
+                            <Fruitbox
+                                fruitCount={kiwi}
+                                setFruitCount={setKiwi}/>
                         </p>
                     </article>
                 <article>
-                    <button
-                        type="submit"
-                        className="reset-button"
-                        onClick={resetFruits}
-                    >
+                    <Button type="submit"
+                            className="reset-button"
+                            clickHandler={resetFruits}>
                         Reset
-                    </button>
+                    </Button>
+
                 </article>
                 
             </section>
             <form onSubmit={handleSubmit}>
                 <section className="outer-container">
                     <fieldset className="inner-container-fieldset">
-                        <label htmlFor="details-name">
-                            <span>Voornaam</span>
-                            <input
-                                type="text"
-                                name="name"
-                                id="details-name"
-                                value={name}
-                                onChange={(e)=>setName(e.target.value)}
-                                />
-                        </label>
-                        <label htmlFor="details-lastname">
-                            <span>Achternaam</span>
-                            <input
-                                type="text"
-                                name="lastname"
-                                id="details-lastname"
-                                value={lastname}
-                                onChange={(e)=>setLastName(e.target.value)}
+                        <Input
+                            type="text"
+                            name="name"
+                            label="Voornaam"
+                            value={name}
+                            changeHandler={setName}
                             />
-                        </label>
-                        <label htmlFor="details-age">
-                            <span>Leeftijd</span>
-                            <input
-                                type="number"
-                                name="age"
-                                id="details-age"
-                                value={age}
-                                onChange={(e)=>setAge(parseInt(e.target.value))}
+                        <Input
+                            type="text"
+                            name="lastname"
+                            label="Achternaam"
+                            value={lastname}
+                            changeHandler={setLastName}
                             />
-                        </label>
-                        <label htmlFor="details-zipcode">
-                            <span>Postcode</span>
-                            <input
-                                type="text"
-                                name="zipcode"
-                                id="details-zipcode"
-                                value={zipcode}
-                                onChange={(e)=>setZipcode(e.target.value)}
-                            />
-                        </label>
+                        <Input
+                            type="number"
+                            name="age"
+                            label="Leeftijd"
+                            value={age}
+                            changeHandler={setAge}
+                        />
+                        <Input
+                            type="text"
+                            name="zipcode"
+                            label="Postcode"
+                            value={zipcode}
+                            changeHandler={setZipcode}
+                        />
                         <label htmlFor="details-delivery">
                             <span>Bezorgfrequentie</span>
                             <select
@@ -225,12 +179,11 @@ function App() {
                             <span>Ik ga akkoord met de voorwaarden</span>
                         </label>
                     </fieldset>
-                    <button
+                    <Button
                         type="submit"
-                        className="send-button"
-                    >
+                        className="send-button">
                         Verzenden
-                    </button>
+                    </Button>
                 </section>
             </form>
         </main>
